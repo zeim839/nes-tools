@@ -1,0 +1,61 @@
+# @configure_input@
+
+# Package-specific substitution variables
+package = @PACKAGE_NAME@
+version = @PACKAGE_VERSION@
+tarname = @PACKAGE_TARNAME@
+distdir = $(tarname)-$(version)
+
+# Prefix-specific substitution variables
+prefix      = @prefix@
+exec_prefix = @exec_prefix@
+bindir      = @bindir@
+
+# Build-specific substitution variables.
+CC      = @CC@
+CFLAGS  = @CFLAGS@ -Wall -O0 -I.
+LDFLAGS = -lm -lSDL2 -lSDL2_ttf
+
+# Install script substitution variables.
+INSTALL         = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+
+# Source/header/object files.
+SRC_FILES = $(wildcard *.c)
+OBJ_FILES = $(SRC_FILES:.c=.o)
+
+AUDIO_DIR = ./audio
+AUDIO_SRC_FILES = $(wildcard $(AUDIO_DIR)/*.c)
+AUDIO_OBJ_FILES = $(AUDIO_SRC_FILES:.c=.o)
+
+TARGET = nes-tools
+
+all: $(TARGET)
+
+$(TARGET): $(AUDIO_OBJ_FILES) $(OBJ_FILES)
+	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+
+$(AUDIO_OBJ_FILES): $(AUDIO_SRC_FILES) $(AUDIO_HDR_FILES)
+	$(MAKE) -C $(AUDIO_DIR) all
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	$(RM) $(OBJ_FILES) $(TARGET)
+	$(MAKE) -C $(AUDIO_DIR) clean
+
+install: $(TARGET)
+	$(INSTALL) -d $(bindir)
+	$(INSTALL_PROGRAM) -m 0755 $(TARGET) $(bindir)
+
+uninstall:
+	-rm $(bindir)/nes-tools
+
+Makefile: Makefile.in ../config.status
+	cd .. && ./config.status src/$@
+
+../config.status: ../configure
+	cd .. && ./config.status --recheck
+
+.PHONY: all clean check install
