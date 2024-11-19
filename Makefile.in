@@ -30,6 +30,7 @@ $(distdir): FORCE
 	cp Makefile.in $(distdir)
 	cp src/Makefile.in $(distdir)/src
 	cp src/audio/Makefile.in $(distdir)/src/audio
+	cp src/config.h.in $(distdir)/src
 
 	cp src/*.c $(distdir)/src
 	cp src/*.h $(distdir)/src
