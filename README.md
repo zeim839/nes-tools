@@ -1,13 +1,17 @@
-# nes-tools
+<div align="center">
+<h1>nes-tools</h1>
+
+<img src="https://github.com/user-attachments/assets/225ad035-acc0-4ba5-a257-18f559e1dddb" width="50%" height="50%" />
 
 NES emulator toolchain based on [ObaraEmmanuel/NES](https://github.com/ObaraEmmanuel/NES).
 
-## Dependencies
-This project requires the [SDL2](https://www.libsdl.org/) library to be installed in a searchable path (i.e. within your OS `PATH` variable). Additionally, you'll need a C compiler and [Make](https://www.gnu.org/software/make/).
+Windows support coming soon...
 
 ⚠️⚠️BEWARE OF BUGS⚠️⚠️
+</div>
 
-Windows support coming soon...
+## Dependencies
+This project requires the [SDL2](https://www.libsdl.org/) library to be installed in a searchable path (i.e. within your OS `PATH` variable). Additionally, you'll need a C compiler and [Make](https://www.gnu.org/software/make/).
 
 ## Install
 
@@ -45,6 +49,9 @@ nes-tools run [path/to/rom/]
 ```
 
 nes-tools supports [iNES](https://www.nesdev.org/wiki/INES) format cartridge ROMs.
+
+## Contributing
+All contributions are welcome and appreciated. Open an issue before proposing significant changes.
 
 ## License
 [MIT](LICENSE)
