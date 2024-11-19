@@ -1,0 +1,54 @@
+# Build files.
+*.o
+
+# Target
+/src/nes-tools
+
+# Dist
+nes-tools-*.tar.gz
+
+# Generated Makefiles
+Makefile
+/src/Makefile
+/src/audio/Makefile
+
+# config.h.in
+/src/config.h
+
+# Generated Directories
+/build/
+/bin/
+/lib/
+/obj/
+/*.libs
+/*.deps
+
+# Autotools generated files
+/aclocal.m4
+/autom4te.cache/
+/compile
+/config.guess
+/config.sub
+/config.h
+/config.h.in
+/config.log
+/config.status
+/configure
+/depcomp
+/install-sh
+/ltmain.sh
+/missing
+/stamp-h1
+
+# Temporary files
+*~
+.DS_Store
+
+# Ignore debugging files
+vgcore.*
+core.*
+
+# Ignore user-specific configurations
+/.idea/
+/.vscode/
+/*.iml
