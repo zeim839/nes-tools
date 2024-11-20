@@ -57,7 +57,15 @@ int help(int argc, char** argv)
 
 	if (!strcmp(argv[1], "run")) {
 		printf("usage: %s run [NES ROM File]\n\n", PACKAGE_NAME);
-		printf("Runs the specified NES ROM file. Only iNES file format is currently accepted.\n");
+		printf("Runs the specified NES ROM file. Only iNES file format is currently accepted.\n\n");
+		printf("Keyboard map:\n\n");
+		printf("\tARROW KEYS:\tUP/DOWN/RIGHT/LEFT\n");
+		printf("\tRETURN:\t\tSTART\n");
+		printf("\tRSHIFT:\t\tSELECT\n");
+		printf("\tH:\t\tTURBO A\n");
+		printf("\tJ:\t\tBUTTON A\n");
+		printf("\tK:\t\tBUTTON B\n");
+		printf("\tL:\t\tTURBO B\n\n");
 		exit(EXIT_SUCCESS);
 	}
 
