@@ -3489,7 +3489,7 @@ then :
   { printf "%s\n" "$as_me:${as_lineno-$LINENO}: SDL2_ttf headers found" >&5
 printf "%s\n" "$as_me: SDL2_ttf headers found" >&6;}
 else $as_nop
-  as_fn_error $? "SDL2_ttf headers not found in $sdl2_ttf_prefix/include/SDL2" "$LINENO" 5
+  as_fn_error $? "SDL2_ttf headers not found in $sdl_ttf_prefix/include/SDL2" "$LINENO" 5
 fi
 
 
@@ -3533,7 +3533,7 @@ then :
   { printf "%s\n" "$as_me:${as_lineno-$LINENO}: SDL2_ttf library found" >&5
 printf "%s\n" "$as_me: SDL2_ttf library found" >&6;}
 else $as_nop
-  as_fn_error $? "SDL2_ttf library not found in $sdl2_ttf_prefix/lib" "$LINENO" 5
+  as_fn_error $? "SDL2_ttf library not found in $sdl_ttf_prefix/lib" "$LINENO" 5
 fi
 
 
@@ -3543,7 +3543,7 @@ then :
   { printf "%s\n" "$as_me:${as_lineno-$LINENO}: SDL2 headers found" >&5
 printf "%s\n" "$as_me: SDL2 headers found" >&6;}
 else $as_nop
-  as_fn_error $? "SDL2 headers not found in $sdl2_prefix/include/SDL2" "$LINENO" 5
+  as_fn_error $? "SDL2 headers not found in $sdl_prefix/include/SDL2" "$LINENO" 5
 fi
 
 
@@ -3587,7 +3587,7 @@ then :
   { printf "%s\n" "$as_me:${as_lineno-$LINENO}: SDL2 library found" >&5
 printf "%s\n" "$as_me: SDL2 library found" >&6;}
 else $as_nop
-  as_fn_error $? "SDL2 library not found in $sdl2_prefix/lib" "$LINENO" 5
+  as_fn_error $? "SDL2 library not found in $sdl_prefix/lib" "$LINENO" 5
 fi
 
 
