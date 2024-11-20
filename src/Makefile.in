@@ -14,7 +14,7 @@ bindir      = @bindir@
 # Build-specific substitution variables.
 CC      = @CC@
 CFLAGS  = @CFLAGS@ -Wall -O0 -I.
-LDFLAGS = -lm -lSDL2 -lSDL2_ttf
+LDFLAGS = @LDFLAGS@ -lm -lSDL2 -lSDL2_ttf
 
 # Install script substitution variables.
 INSTALL         = @INSTALL@
@@ -33,7 +33,7 @@ TARGET = nes-tools
 all: $(TARGET)
 
 $(TARGET): $(AUDIO_OBJ_FILES) $(OBJ_FILES)
-	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
 
 $(AUDIO_OBJ_FILES): $(AUDIO_SRC_FILES) $(AUDIO_HDR_FILES)
 	$(MAKE) -C $(AUDIO_DIR) all
