@@ -1,4 +1,5 @@
 #include "emulator.h"
+#include "snapshot.h"
 
 emulator_t* emulator_create(mapper_t* mapper)
 {
@@ -65,20 +66,25 @@ emulator_t* emulator_create(mapper_t* mapper)
 
 void emulator_exec(emulator_t* emu)
 {
-	joypad_t* joy1      = &emu->bus->joy1;
-	joypad_t* joy2      = &emu->bus->joy2;
-	ppu_t* ppu          = emu->ppu;
-	cpu6502_t* cpu      = emu->cpu;
-	apu_t* apu          = emu->apu;
-	gfx_t* gfx          = emu->gfx;
+	gfx_t* gfx           = emu->gfx;
 	timerx_t* timer      = &emu->timer;
 	timerx_t frame_timer = timerx_create(emu->period);
+	snapshot_t* snapshot = snapshot_create(emu);
 
 	SDL_Event e;
 	timerx_mark_start(&frame_timer);
 
 	while (!emu->exit) {
+
+		// Reinitialize every loop because snapshots.
+		joypad_t* joy1 = &emu->bus->joy1;
+		joypad_t* joy2 = &emu->bus->joy2;
+		ppu_t* ppu     = emu->ppu;
+		cpu6502_t* cpu = emu->cpu;
+		apu_t* apu     = emu->apu;
+
 		timerx_mark_start(timer);
+
 		while (SDL_PollEvent(&e)) {
 			joypad_update(joy1, &e);
 			joypad_update(joy2, &e);
@@ -100,6 +106,12 @@ void emulator_exec(emulator_t* emu)
 				case SDLK_F5:
 				        emulator_reset(emu);
 					break;
+				case SDLK_TAB:
+					snapshot_restore(snapshot, emu);
+					continue;
+				case SDLK_q:
+					snapshot_update(snapshot, emu);
+					continue;
 				default:
 					break;
 				}
@@ -162,6 +174,7 @@ void emulator_exec(emulator_t* emu)
 			timerx_wait(IDLE_SLEEP);
 		}
 	}
+	snapshot_destroy(snapshot);
 	timerx_mark_end(&frame_timer);
 	emu->time_diff = timerx_get_diff(&frame_timer);
 }

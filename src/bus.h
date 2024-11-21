@@ -62,14 +62,19 @@ struct ppu_t;
 
 typedef struct
 {
-	mapper_t*     mapper;
-	uint8_t       ram[RAM_SIZE];
-	uint8_t       bus;
-	joypad_t      joy1;
-	joypad_t      joy2;
+	// Memory.
+	mapper_t* mapper;
+	uint8_t   ram[RAM_SIZE];
+	uint8_t   bus;
+
+	// Joypad controllers.
+	joypad_t joy1;
+	joypad_t joy2;
+
+	// Bus-connected modules.
 	struct cpu6502_t* cpu;
-	struct apu_t*   apu;
-	struct ppu_t*   ppu;
+	struct apu_t*     apu;
+	struct ppu_t*     ppu;
 
 } bus_t;
 
