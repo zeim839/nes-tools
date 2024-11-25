@@ -65,7 +65,9 @@ int help(int argc, char** argv)
 		printf("\tH:\t\tTURBO A\n");
 		printf("\tJ:\t\tBUTTON A\n");
 		printf("\tK:\t\tBUTTON B\n");
-		printf("\tL:\t\tTURBO B\n\n");
+		printf("\tL:\t\tTURBO B\n");
+		printf("\tQ:\t\tCapture save point\n");
+		printf("\tTAB:\t\tRecover save point\n\n");
 		exit(EXIT_SUCCESS);
 	}
 
@@ -90,7 +92,7 @@ int main(int argc, char** argv)
 {
 	if (argc < 2) {
 		LOG(ERROR, "need at least (1) argument");
-		printf("Run '%s help' for usage.\n", PACKAGE_NAME);
+		printf("%s", doc_str);
 		exit(EXIT_FAILURE);
 	}
 
