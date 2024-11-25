@@ -12,11 +12,11 @@ joypad_t joypad_create(uint8_t player)
 
 uint8_t joypad_read(joypad_t* joy)
 {
-	if(joy->index > 7)
+	if (joy->index > 7)
 		return 1;
 
 	uint8_t val = (joy->status & (1 << joy->index)) != 0;
-	if(!joy->strobe)
+	if (!joy->strobe)
 		joy->index++;
 
 	return val;

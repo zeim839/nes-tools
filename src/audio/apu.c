@@ -161,7 +161,8 @@ void half_frame(apu_t* apu)
 		noise->l--;
 }
 
-void sample(apu_t* apu) {
+void sample(apu_t* apu)
+{
 	float sample = biquad_apply(&apu->aa_filter, apu_get_sample(apu));
 	sampler_t* sampler = &apu->sampler;
 	sampler->counter++;
