@@ -36,6 +36,7 @@ enum
 	Y_SCROLL_BITS   = 0x73E0
 };
 
+// ppu_t emulates an NES picture processing unit (PPU).
 typedef struct ppu_t
 {
 	size_t frames;
@@ -91,21 +92,47 @@ extern uint32_t ppu_palette[64];
 
 ppu_t* ppu_create(bus_t* bus);
 void ppu_destroy(ppu_t* ppu);
+
+// ppu_reset performs a soft reset on the ppu.
 void ppu_reset(ppu_t* ppu);
 
+// ppu_exec executes a single PPU cycle.
 void ppu_exec(ppu_t* ppu);
 
+// ppu_read_status emulates reading from PPU_STATUS (0x2003).
 uint8_t ppu_read_status(ppu_t* ppu);
+
+// ppu_read emulates reading from PPU_DATA (0x2008).
 uint8_t ppu_read(ppu_t* ppu);
+
+// ppu_set_ctrl sets the PPU control register (0x2000).
 void ppu_set_ctrl(ppu_t* ppu, uint8_t ctrl);
+
+// ppu_write writes to PPU_DATA (0x2008).
 void ppu_write(ppu_t* ppu, uint8_t val);
+
+// ppu_dma triggers an OAM DMA transfer that takes ~513 CPU cycles.
 void ppu_dma(ppu_t* ppu, uint8_t addr);
+
+// ppu_set_scroll writes to the scroll register (0x2005).
 void ppu_set_scroll(ppu_t* ppu, uint8_t val);
+
+// ppu_set_addr writes to the PPU_ADDR register (0x2006).
 void ppu_set_addr(ppu_t* ppu, uint8_t addr);
+
+// ppu_set_oam_addr writes to the OAM_ADDR register (0x2003).
 void ppu_set_oam_addr(ppu_t* ppu, uint8_t addr);
+
+// ppu_read_oam reads from the OAM_DATA register (0x2004).
 uint8_t ppu_read_oam(ppu_t* ppu);
+
+// ppu_write_oam writes to the OAM_DATA register (0x2004).
 void ppu_write_oam(ppu_t* ppu, uint8_t val);
+
+// ppu_read_vram reads from the PPU's internal video memory.
 uint8_t ppu_read_vram(ppu_t* ppu, uint16_t addr);
+
+// ppu_read_vram writes to the PPU's internal video memory.
 void ppu_write_vram(ppu_t* ppu, uint16_t addr, uint8_t val);
 
 #endif // NES_TOOLS_PPU_H

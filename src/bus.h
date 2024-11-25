@@ -60,6 +60,7 @@ struct cpu6502_t;
 struct apu_t;
 struct ppu_t;
 
+// bus_t emulates an NES bus.
 typedef struct
 {
 	// Memory.
@@ -81,10 +82,17 @@ typedef struct
 bus_t* bus_create(mapper_t* mapper);
 void bus_destroy(bus_t* bus);
 
+// bus_write writes val to addr in main memory.
 void bus_write(bus_t* bus, uint16_t addr, uint8_t val);
+
+// bus_read fetches the value at addr from main memory.
 uint8_t bus_read(bus_t* bus, uint16_t addr);
+
+// bus_get_ptr gets a pointer to the value at addr in main memory.
 uint8_t* bus_get_ptr(bus_t* bus, uint16_t addr);
 
+// Eventually set all other NES circuits. bus_read/bus_write will be
+// able to access memory-mapped registers.
 void bus_set_cpu(bus_t* bus, struct cpu6502_t* cpu);
 void bus_set_apu(bus_t* bus, struct apu_t* apu);
 void bus_set_ppu(bus_t* bus, struct ppu_t* ppu);

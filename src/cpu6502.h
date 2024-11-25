@@ -13,6 +13,7 @@ enum
 	INTERRUPT_PENDING = 1 << 1
 };
 
+// Enumerates the possible states of the CPU status register.
 enum cpu_flag
 {
 	NEGATIVE  = 1 << 7,
@@ -24,6 +25,7 @@ enum cpu_flag
 	CARRY     = 1
 };
 
+// CPU 6502 opcodes, including unofficial/undocumented.
 enum cpu_opcode
 {
 	// Official opcodes.
@@ -41,18 +43,21 @@ enum cpu_opcode
 	ISB, RLA, RRA, SLO, SRE, SKB, IGN,
 };
 
+// 6502 instruction addressing modes.
 enum cpu_addr_mode
 {
 	NONE, IMPL, ACC, REL, IMT, ZPG, ZPG_X, ZPG_Y,
 	ABS, ABS_X, ABS_Y, IND, IND_IDX, IDX_IND,
 };
 
+// A CPU instruction combines an opcode and an addressing mode.
 struct cpu_instr
 {
 	enum cpu_opcode    opcode;
 	enum cpu_addr_mode mode;
 };
 
+// 6502 instruction lookup table.
 static const struct cpu_instr cpu_instr_lookup[256] =
 {
 //  HI\LO        0x0          0x1          0x2             0x3           0x4             0x5         0x6           0x7           0x8           0x9           0xA        0xB            0xC             0xD          0xE           0xF
@@ -75,6 +80,7 @@ static const struct cpu_instr cpu_instr_lookup[256] =
 	/*  0xF  */  {BEQ, REL}, {SBC, IND_IDX}, NIL_OP,     {ISB, IND_IDX}, {NOP, ZPG_X}, {SBC, ZPG_X}, {INC, ZPG_X}, {ISB, ZPG_X}, {SED, IMPL}, {SBC, ABS_Y}, {NOP, IMPL}, {ISB, ABS_Y}, {NOP, ABS_X}, {SBC, ABS_X}, {INC, ABS_X}, {ISB, ABS_X}
 };
 
+// cycle times corresponding to each instruction in cpu_instr_lookup.
 static const uint8_t cpu_cycle_lookup[256] =
 {
         // HI/LO 0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F
@@ -105,6 +111,7 @@ enum cpu_interrupt
 	IRQ
 };
 
+// cpu6502_t emulates a 6502 microprocessor.
 typedef struct cpu6502_t
 {
 	uint8_t  state;
@@ -134,9 +141,17 @@ typedef struct cpu6502_t
 
 cpu6502_t* cpu_create(bus_t* bus);
 void cpu_destroy(cpu6502_t* cpu);
+
+// cpu_reset performs a soft-reset.
 void cpu_reset(cpu6502_t* cpu);
+
+// cpu_exec executes a single CPU cycle.
 void cpu_exec(cpu6502_t* cpu);
+
+// cpu_dma_suspend suspends the CPU for 513 cycles for DMA transfer.
 void cpu_dma_suspend(cpu6502_t* cpu);
+
+// cpu_interrupt queues an interrupt.
 void cpu_interrupt(cpu6502_t* cpu, enum cpu_interrupt interrupt);
 
 #endif // NES_TOOLS_CPU6502_H
