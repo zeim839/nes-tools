@@ -3,11 +3,11 @@
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
 
-/* Define to 1 if you have the <SDL2/SDL.h> header file. */
-#undef HAVE_SDL2_SDL_H
+/* Define to 1 if you have the <SDL.h> header file. */
+#undef HAVE_SDL_H
 
-/* Define to 1 if you have the <SDL2/SDL_ttf.h> header file. */
-#undef HAVE_SDL2_SDL_TTF_H
+/* Define to 1 if you have the <SDL_ttf.h> header file. */
+#undef HAVE_SDL_TTF_H
 
 /* Define to 1 if you have the <stdarg.h> header file. */
 #undef HAVE_STDARG_H
