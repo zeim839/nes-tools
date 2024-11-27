@@ -699,8 +699,10 @@ SHELL'
 ac_subst_files=''
 ac_user_opts='
 enable_option_checking
-with_sdl_prefix
-with_sdl_ttf_prefix
+with_sdl_headers
+with_sdl_lib
+with_sdl_ttf_headers
+with_sdl_ttf_lib
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1327,9 +1329,12 @@ if test -n "$ac_init_help"; then
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
-  --with-sdl-prefix=DIR   Specify the prefix directory for SDL2
-  --with-sdl-ttf-prefix=DIR
-                          Specify the prefix directory for SDL2_ttf
+  --with-sdl-headers=DIR  Specify the directory containing SDL2 headers
+  --with-sdl-lib=DIR      Specify the directory containing the SDL2 library
+  --with-sdl-ttf-headers=DIR
+                          Specify the directory containing SDL2_ttf headers
+  --with-sdl-ttf-lib=DIR  Specify the directory containing the SDL2_ttf
+                          library
 
 Some influential environment variables:
   CC          C compiler command
@@ -3420,36 +3425,64 @@ test -z "$INSTALL_SCRIPT" && INSTALL_SCRIPT='${INSTALL}'
 test -z "$INSTALL_DATA" && INSTALL_DATA='${INSTALL} -m 644'
 
 
-# User-specified SDL2 path.
+# User-specified SDL2 headers path.
 
-# Check whether --with-sdl-prefix was given.
-if test ${with_sdl_prefix+y}
+# Check whether --with-sdl-headers was given.
+if test ${with_sdl_headers+y}
 then :
-  withval=$with_sdl_prefix; sdl_prefix=$withval
+  withval=$with_sdl_headers; sdl_headers=$withval
 else $as_nop
-  sdl_prefix=""
+  sdl_headers=""
 fi
 
 
-if test -n "$sdl_prefix"; then
-  CFLAGS="$CFLAGS -I$sdl_prefix/include"
-  LDFLAGS="$LDFLAGS -L$sdl_prefix/lib"
+if test -n "$sdl_headers"; then
+  CFLAGS="$CFLAGS -I$sdl_headers"
 fi
 
-# User-specified SDL2_ttf path.
+# User-specified SDL2 libraries path.
 
-# Check whether --with-sdl-ttf-prefix was given.
-if test ${with_sdl_ttf_prefix+y}
+# Check whether --with-sdl-lib was given.
+if test ${with_sdl_lib+y}
 then :
-  withval=$with_sdl_ttf_prefix; sdl_ttf_prefix=$withval
+  withval=$with_sdl_lib; sdl_lib=$withval
 else $as_nop
-  sdl_ttf_prefix=""
+  sdl_lib=""
 fi
 
 
-if test -n "$sdl_ttf_prefix"; then
-  CFLAGS="$CFLAGS -I$sdl_ttf_prefix/include/SDL2"
-  LDFLAGS="$LDFLAGS -L$sdl_ttf_prefix/lib"
+if test -n "$sdl_lib"; then
+  LDFLAGS="$LDFLAGS -L$sdl_lib"
+fi
+
+# User-specified SDL2_ttf headers path.
+
+# Check whether --with-sdl-ttf-headers was given.
+if test ${with_sdl_ttf_headers+y}
+then :
+  withval=$with_sdl_ttf_headers; sdl_ttf_headers=$withval
+else $as_nop
+  sdl_ttf_headers=""
+fi
+
+
+if test -n "$sdl_ttf_headers"; then
+  CFLAGS="$CFLAGS -I$sdl_ttf_headers"
+fi
+
+# User-specified SDL2 libraries path.
+
+# Check whether --with-sdl-ttf-lib was given.
+if test ${with_sdl_ttf_lib+y}
+then :
+  withval=$with_sdl_ttf_lib; sdl_ttf_lib=$withval
+else $as_nop
+  sdl_ttf_lib=""
+fi
+
+
+if test -n "$sdl_ttf_lib"; then
+  LDFLAGS="$LDFLAGS -L$sdl_ttf_lib"
 fi
 
 # Validate SDL2 installation.
@@ -3483,13 +3516,13 @@ then :
 printf "%s\n" "#define STDC_HEADERS 1" >>confdefs.h
 
 fi
-ac_fn_c_check_header_compile "$LINENO" "SDL2/SDL_ttf.h" "ac_cv_header_SDL2_SDL_ttf_h" "$ac_includes_default"
-if test "x$ac_cv_header_SDL2_SDL_ttf_h" = xyes
+ac_fn_c_check_header_compile "$LINENO" "SDL_ttf.h" "ac_cv_header_SDL_ttf_h" "$ac_includes_default"
+if test "x$ac_cv_header_SDL_ttf_h" = xyes
 then :
   { printf "%s\n" "$as_me:${as_lineno-$LINENO}: SDL2_ttf headers found" >&5
 printf "%s\n" "$as_me: SDL2_ttf headers found" >&6;}
 else $as_nop
-  as_fn_error $? "SDL2_ttf headers not found in $sdl_ttf_prefix/include/SDL2" "$LINENO" 5
+  as_fn_error $? "SDL2_ttf headers not found in $sdl_ttf_headers" "$LINENO" 5
 fi
 
 
@@ -3533,17 +3566,17 @@ then :
   { printf "%s\n" "$as_me:${as_lineno-$LINENO}: SDL2_ttf library found" >&5
 printf "%s\n" "$as_me: SDL2_ttf library found" >&6;}
 else $as_nop
-  as_fn_error $? "SDL2_ttf library not found in $sdl_ttf_prefix/lib" "$LINENO" 5
+  as_fn_error $? "SDL2_ttf library not found in $sdl_ttf_lib" "$LINENO" 5
 fi
 
 
-ac_fn_c_check_header_compile "$LINENO" "SDL2/SDL.h" "ac_cv_header_SDL2_SDL_h" "$ac_includes_default"
-if test "x$ac_cv_header_SDL2_SDL_h" = xyes
+ac_fn_c_check_header_compile "$LINENO" "SDL.h" "ac_cv_header_SDL_h" "$ac_includes_default"
+if test "x$ac_cv_header_SDL_h" = xyes
 then :
   { printf "%s\n" "$as_me:${as_lineno-$LINENO}: SDL2 headers found" >&5
 printf "%s\n" "$as_me: SDL2 headers found" >&6;}
 else $as_nop
-  as_fn_error $? "SDL2 headers not found in $sdl_prefix/include/SDL2" "$LINENO" 5
+  as_fn_error $? "SDL2 headers not found in $sdl_headers" "$LINENO" 5
 fi
 
 
@@ -3587,7 +3620,7 @@ then :
   { printf "%s\n" "$as_me:${as_lineno-$LINENO}: SDL2 library found" >&5
 printf "%s\n" "$as_me: SDL2 library found" >&6;}
 else $as_nop
-  as_fn_error $? "SDL2 library not found in $sdl_prefix/lib" "$LINENO" 5
+  as_fn_error $? "SDL2 library not found in $sdl_lib" "$LINENO" 5
 fi
 
 
@@ -3610,16 +3643,16 @@ then :
   printf "%s\n" "#define HAVE_TIME_H 1" >>confdefs.h
 
 fi
-ac_fn_c_check_header_compile "$LINENO" "SDL2/SDL.h" "ac_cv_header_SDL2_SDL_h" "$ac_includes_default"
-if test "x$ac_cv_header_SDL2_SDL_h" = xyes
+ac_fn_c_check_header_compile "$LINENO" "SDL.h" "ac_cv_header_SDL_h" "$ac_includes_default"
+if test "x$ac_cv_header_SDL_h" = xyes
 then :
-  printf "%s\n" "#define HAVE_SDL2_SDL_H 1" >>confdefs.h
+  printf "%s\n" "#define HAVE_SDL_H 1" >>confdefs.h
 
 fi
-ac_fn_c_check_header_compile "$LINENO" "SDL2/SDL_ttf.h" "ac_cv_header_SDL2_SDL_ttf_h" "$ac_includes_default"
-if test "x$ac_cv_header_SDL2_SDL_ttf_h" = xyes
+ac_fn_c_check_header_compile "$LINENO" "SDL_ttf.h" "ac_cv_header_SDL_ttf_h" "$ac_includes_default"
+if test "x$ac_cv_header_SDL_ttf_h" = xyes
 then :
-  printf "%s\n" "#define HAVE_SDL2_SDL_TTF_H 1" >>confdefs.h
+  printf "%s\n" "#define HAVE_SDL_TTF_H 1" >>confdefs.h
 
 fi
 ac_fn_c_check_header_compile "$LINENO" "stdarg.h" "ac_cv_header_stdarg_h" "$ac_includes_default"
