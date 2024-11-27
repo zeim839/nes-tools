@@ -3,12 +3,17 @@
 
 #include "config.h"
 
+#if defined _WIN32 || defined __CYGWIN__
+#define SDL_MAIN_HANDLED
+#endif
+
+#include <SDL.h>
+#include <SDL_ttf.h>
+
 #include <time.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
 #include <math.h>
 #include "log.h"
 
