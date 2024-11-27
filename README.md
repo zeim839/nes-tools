@@ -5,8 +5,6 @@
 
 NES emulator toolchain based on [ObaraEmmanuel/NES](https://github.com/ObaraEmmanuel/NES).
 
-Windows support coming soon...
-
 ⚠️⚠️BEWARE OF BUGS⚠️⚠️
 </div>
 
