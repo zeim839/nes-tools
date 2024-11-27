@@ -33,7 +33,7 @@ TARGET = nes-tools
 all: $(TARGET)
 
 $(TARGET): $(AUDIO_OBJ_FILES) $(OBJ_FILES)
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
+	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
 $(AUDIO_OBJ_FILES): $(AUDIO_SRC_FILES) $(AUDIO_HDR_FILES)
 	$(MAKE) -C $(AUDIO_DIR) all
